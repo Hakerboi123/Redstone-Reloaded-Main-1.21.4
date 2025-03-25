@@ -11,18 +11,12 @@ import net.minecraft.util.Identifier;
 import xyz.glowstonelabs.redstonereloaded.RedstoneReloaded;
 
 public class ModItemGroups {
-    public static final ItemGroup REDSTONE_RELOADED = Registry.register(Registries.ITEM_GROUP,
-            Identifier.of(RedstoneReloaded.MOD_ID, "redstone_reloaded"),
-            FabricItemGroup.builder().icon(() -> new ItemStack(Items.REDSTONE))
-                    .displayName(Text.translatable("itemgroup.redstone-reloaded.redstone-reloaded_functional"))
-                    .entries((displayContext, entries) -> {
-                        entries.add(ModItems.BUBBLE_ELEVATOR);
+    public static final ItemGroup REDSTONE_RELOADED = Registry.register(Registries.ITEM_GROUP, Identifier.of(RedstoneReloaded.MOD_ID, "redstone_reloaded"),
+            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.redstone_reloaded"))
+                    .icon(() -> new ItemStack(Items.REDSTONE.asItem())).entries((displayContext, entries) -> {
+                        entries.add(ModItems.BUBBLE_ELEVATOR_BLOCK);
                     }).build());
 
+    public static void load() {RedstoneReloaded.LOGGER.info("Registering ModItemGroups for " + RedstoneReloaded.MOD_ID);}
 
-
-    public static void loadRRModItemGroups() {
-        RedstoneReloaded.LOGGER.info("Loading Item Groups for " + RedstoneReloaded.MOD_ID + "...");
-        RedstoneReloaded.LOGGER.info("Loaded!");
-    }
 }

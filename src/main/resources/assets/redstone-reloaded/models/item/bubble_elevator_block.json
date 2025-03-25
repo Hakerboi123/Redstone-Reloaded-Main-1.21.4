@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "redstone-reloaded:item/bubble_elevator_texture"
+    "layer0": "redstone-reloaded:item/bubble_elevator_block"
   }
 }

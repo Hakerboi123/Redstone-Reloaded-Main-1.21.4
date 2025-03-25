@@ -1,5 +1,7 @@
 package xyz.glowstonelabs.redstonereloaded.init;
 
+
+
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -13,12 +15,11 @@ import xyz.glowstonelabs.redstonereloaded.RedstoneReloaded;
 import java.util.function.Function;
 
 public class ModItems {
-    public static final Item BUBBLE_ELEVATOR = registerBlockItem("bubble_elevator", ModBlocks.BUBBLE_ELEVATOR);
-
 
     public static BlockItem registerBlockItem(String name, Block block) {
         return registerItem(name, settings -> new BlockItem(block, settings), new Item.Settings().useBlockPrefixedTranslationKey());
     }
+
 
     public static <I extends Item> I registerItem(String name, Function<Item.Settings, I> factory, Item.Settings settings) {
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(RedstoneReloaded.MOD_ID, name));
@@ -34,9 +35,10 @@ public class ModItems {
     public static Item registerItem(String id, Function<Item.Settings, Item> factory) {
         return registerItem(id, factory, new Item.Settings());
     }
+    
+    public static final Item BUBBLE_ELEVATOR_BLOCK = registerBlockItem("bubble_elevator_block", ModBlocks.BUBBLE_ELEVATOR_BLOCK);
+    
 
-    public static void loadRRModItems() {
-        RedstoneReloaded.LOGGER.info("Loading Mod Items for " + RedstoneReloaded.MOD_ID + "...");
-        RedstoneReloaded.LOGGER.info("Loaded!");
-    }
+    public static void load() {RedstoneReloaded.LOGGER.info("registering Mod Items for " + RedstoneReloaded.MOD_ID);}
 }
+

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "has_water=false": {
+      "model": "redstone-reloaded:block/bubble_elevator_block"
+    },
+    "has_water=true": {
+      "model": "redstone-reloaded:block/bubble_elevator_block_waterlogged"
+    }
+  }
+}

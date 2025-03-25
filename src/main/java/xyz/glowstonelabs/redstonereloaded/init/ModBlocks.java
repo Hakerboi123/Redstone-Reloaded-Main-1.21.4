@@ -1,15 +1,15 @@
 package xyz.glowstonelabs.redstonereloaded.init;
 
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.particle.ParticleTypes;
+
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import xyz.glowstonelabs.redstonereloaded.RedstoneReloaded;
 import xyz.glowstonelabs.redstonereloaded.block.Bubbleelevator.BubbleElevatorBlock;
@@ -17,20 +17,16 @@ import xyz.glowstonelabs.redstonereloaded.block.Bubbleelevator.BubbleElevatorBlo
 import java.util.function.Function;
 
 public class ModBlocks {
-    public static final Block BUBBLE_ELEVATOR = registerBlock(
-            "bubble_elevator",
-            settings -> new BubbleElevatorBlock(
-                    AbstractBlock.Settings.create()
-                            .mapColor(MapColor.IRON_GRAY)
-                            .sounds(BlockSoundGroup.METAL)
-                            .pistonBehavior(PistonBehavior.NORMAL)
-            ),
-            AbstractBlock.Settings.create()
-    );
+    public static final BooleanProperty HAS_WATER = BooleanProperty.of("has_water");
 
+    public static final BubbleElevatorBlock BUBBLE_ELEVATOR_BLOCK = registerBlock(
+            "bubble_elevator_block",
+            BubbleElevatorBlock::new,AbstractBlock.Settings.copy(Blocks.GLASS)
+                    .strength(2.0f, 2.0f)
+                    .sounds(BlockSoundGroup.METAL)
+                    .nonOpaque());
 
-
-
+    //Main Bits
 
     public static <B extends Block> B registerBlock(String name, Function<AbstractBlock.Settings, B> factory, AbstractBlock.Settings settings) {
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(RedstoneReloaded.MOD_ID, name));
@@ -39,13 +35,7 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, key, block);
     }
 
-    private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, Identifier.of(RedstoneReloaded.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
-    }
+    public static void load() {RedstoneReloaded.LOGGER.info("Registering ModBlocks for " + RedstoneReloaded.MOD_ID);}
 
-    public static void loadRRModBlocks() {
-        RedstoneReloaded.LOGGER.info("Loading Mod Blocks for " + RedstoneReloaded.MOD_ID + "...");
-        RedstoneReloaded.LOGGER.info("Loaded!");
-    }
+
 }
